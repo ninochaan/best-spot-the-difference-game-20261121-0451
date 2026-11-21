@@ -77,6 +77,28 @@ html, body {
 #counter { color: #2f7d3a; }
 #timer { color: #b23a2e; font-variant-numeric: tabular-nums; }
 
+#par-label {
+  font-size: 15px;
+  font-weight: 600;
+  font-family: system-ui, sans-serif;
+  font-variant-numeric: tabular-nums;
+  color: #7a6a55;
+}
+#par-label.over { color: #b23a2e; }
+
+/* The par bar: a slim drain under the HUD. Full at the first click, empty at
+   par; it reddens as par nears and the track flares once par is beaten. */
+#par-track {
+  height: 8px;
+  margin: 0 4px 6px;
+  background: #e4d9c3;
+  border: 2px solid #2b2b3a;
+  border-radius: 6px;
+  overflow: hidden;
+}
+#par-track.over { border-color: #b23a2e; background: #f6d9d4; }
+#par-fill { height: 100%; width: 100%; background: #2fbf5a; }
+
 #dots { display: inline-flex; gap: 5px; margin-left: 4px; }
 #dots .dot {
   width: 12px; height: 12px;
