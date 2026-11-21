@@ -365,7 +365,7 @@ const MARKET_DIFFS = [
   { x: 396, y: 258, r: 24, label: 'Vendor apron' },
   { x: 396, y: 132, r: 12, label: 'Sign star' },
   { x: 125, y: 228, r: 16, label: 'Missing orange' },
-  { x: 280, y: 60, r: 12, label: 'Dark bulb' },
+  { x: 245, y: 64, r: 14, label: 'Dark bulb' },
   { x: 492, y: 292, r: 12, label: 'Bicycle bell' },
   { x: 500, y: 58, r: 30, label: 'Moon craters' },
 ];

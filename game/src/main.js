@@ -16,6 +16,9 @@ const rightCanvas = document.getElementById('panel-right');
 const counterEl = document.getElementById('counter');
 const dotsEl = document.getElementById('dots');
 const timerEl = document.getElementById('timer');
+const parLabelEl = document.getElementById('par-label');
+const parTrackEl = document.getElementById('par-track');
+const parFillEl = document.getElementById('par-fill');
 const scoreEl = document.getElementById('score');
 const hintsEl = document.getElementById('hints');
 const hintBtn = document.getElementById('hint-btn');
@@ -47,10 +50,29 @@ function announce(text) {
   statusEl.textContent = text;
 }
 
+/** The par bar drains as elapsed approaches par, reddening as it empties. */
+function updateParBar() {
+  const par = currentScene(run).par;
+  const frac = run.elapsed / par;
+  const remaining = Math.max(0, 1 - frac);
+  parFillEl.style.width = `${(remaining * 100).toFixed(1)}%`;
+  parFillEl.style.background = frac >= 1 ? '#b23a2e' : remaining <= 0.15 ? '#b23a2e' : remaining <= 0.4 ? '#f7b733' : '#2fbf5a';
+  parTrackEl.classList.toggle('over', frac >= 1);
+  parLabelEl.classList.toggle('over', frac >= 1);
+}
+
+/** The ticking HUD clock plus its par target and bar. */
+function updateClock() {
+  timerEl.textContent = formatTime(run.elapsed);
+  updateParBar();
+}
+
 function refreshHud() {
   const scene = currentScene(run);
   counterEl.textContent = `${foundCount(run)} of ${totalDiffs(run)} found`;
   timerEl.textContent = formatTime(run.elapsed);
+  parLabelEl.textContent = `/ par ${formatTime(scene.par)}`;
+  updateParBar();
   scoreEl.textContent = String(run.score);
   hintsEl.textContent = String(run.hintsLeft);
   hintBtn.disabled = run.won || run.hintsLeft <= 0;
@@ -90,7 +112,7 @@ function paint(now) {
 function frame(now) {
   if (!shotMode && run.running && !run.won) {
     run.elapsed += (now - lastTick) / 1000;
-    timerEl.textContent = formatTime(run.elapsed);
+    updateClock();
   }
   lastTick = now;
   paint(now);

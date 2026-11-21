@@ -1,4 +1,4 @@
-// shots.js — the four screenshot scenes behind ?shot=start|mid|market|win.
+// shots.js — the four screenshot scenes behind ?shot=start|mid|garden|market|win.
 // Each one sets the real game state to a fixed, honest frame (the same state a
 // player reaches by playing), then freezes the clock, so a screenshot is a
 // real render of the game's own code at a distinct moment of play.
@@ -16,6 +16,15 @@ export function stageShot(name, run) {
     run.elapsed = 47;
     run.running = false;
     run.lastFind = { x: 486, y: 306, at: 0 };
+    return;
+  }
+  if (name === 'garden') {
+    goToScene(run, 2);
+    run.found = [0, 2, 4, 6];
+    run.score = 400;
+    run.elapsed = 121;
+    run.running = false;
+    run.lastFind = { x: 412, y: 350, at: 0 };
     return;
   }
   if (name === 'market') {
